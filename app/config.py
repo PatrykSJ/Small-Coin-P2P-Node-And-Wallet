@@ -1,0 +1,35 @@
+import os
+
+P2P_HOST = "0.0.0.0"
+P2P_PORT = int(os.environ.get("PORT", "5000"))
+HTTP_PORT = int(os.environ.get("HTTP_PORT", "7000"))
+NODE_NAME = os.environ.get("NODE_NAME", None)
+
+STATUS_INTERVAL = 15
+HEALTH_INTERVAL = 10
+HEALTH_TIMEOUT  = 30
+MAX_LINE_BYTES  = 64 * 1024
+
+GENESIS_ALLOCATION = {
+    "0xGENESIS_USER1":    100
+}
+
+MINER_ADDRESS = os.environ.get("MINER_ADDRESS", NODE_NAME)
+
+VERSION     = 1
+BASE_REWARD = 50.0
+NBITS       = 0x1e0ffff0
+# NBITS       = 0x1df0ffff
+
+"""0x1e0ffff0 
+0x1e07fff0
+0x1e00fff0
+0x1df0ffff
+0x1d00ffff"""
+
+MAX_FUTURE_SKEW_SEC = 120
+COINBASE_MATURITY = 1
+
+MISBEHAVIOR_BAN_THRESHOLD = 3
+MISBEHAVIOR_BAN_SECONDS   = 300
+RATE_LIMIT_MSGS_PER_SEC   = 50

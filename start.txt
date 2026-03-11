@@ -1,0 +1,32 @@
+docker network ls
+docker network create mynet
+
+docker build -t p2p-node:latest .
+
+docker run -it --name node1 --network mynet -e NODE_NAME=node1 p2p-node:latest
+docker run -it --name node2 --network mynet -e NODE_NAME=node2 p2p-node:latest
+docker run -it --name node3 --network mynet -e NODE_NAME=node2 p2p-node:latest
+
+docker run -it --name node1 --network mynet -e NODE_NAME=node1 -p 7001:7000 -p 5001:5000 p2p-node:latest
+docker run -it --name node2 --network mynet -e NODE_NAME=node2 -p 7002:7000 -p 5002:5000 p2p-node:latest
+
+docker rm -f node1 2>$null; docker run -it --name node1 --network mynet -e NODE_NAME=node1 -p 7001:7000 -p 5001:5000 p2p-node:latest
+docker rm -f node2 2>$null; docker run -it --name node2 --network mynet -e NODE_NAME=node2 -p 7002:7000 -p 5002:5000 p2p-node:latest
+docker rm -f node3 2>$null; docker run -it --name node3 --network mynet -e NODE_NAME=node3 -p 7003:7000 -p 5003:5000 p2p-node:latest
+docker rm -f node4 2>$null; docker run -it --name node4 --network mynet -e NODE_NAME=node4 -p 7004:7000 -p 5004:5000 p2p-node:latest
+docker rm -f node5 2>$null; docker run -it --name node5 --network mynet -e NODE_NAME=node5 -p 7005:7000 -p 5005:5000 p2p-node:latest
+
+docker rm -f node1 2>$null; docker run -it --name node1 --network mynet -e NODE_NAME=node1 -e MINER_ADDRESS=Hx58472357bc3a95a2513a278b0ebeac775bdc2d62 -p 7001:7000 -p 5001:5000 p2p-node:latest
+docker rm -f node2 2>$null; docker run -it --name node2 --network mynet -e NODE_NAME=node2 -e MINER_ADDRESS=Hx1dede39ae46125a4691a4e3c6d1c5ff5172cea29 -p 7002:7000 -p 5002:5000 p2p-node:latest
+docker rm -f node3 2>$null; docker run -it --name node3 --network mynet -e NODE_NAME=node3 -e MINER_ADDRESS=Hx1dede39ae46125a4691a4e3c6d1c5ff5172cea29 -p 7003:7000 -p 5003:5000 p2p-node:latest
+
+
+
+curl -sS -X POST http://localhost:7001/api/tx -H "Content-Type: application/json" -d "{\"Hash\":\"tx-001\",\"kind\":\"tx\",\"version\":1,\"data\":{\"from\":\"alice\",\"to\":\"bob\",\"amount\":10}}"
+
+curl -s "http://localhost:7001/api/balance/0xGENESIS_FAUCET"
+
+curl -s "http://localhost:7001/api/tx/status/tx-001"
+
+
+curl -X POST http://localhost:7001/api/balances -H "Content-Type: application/json" -d "{\"addresses\": [\"0xGENESIS_FAUCET\", \"Hx58472357bc3a95a2513a278b0ebeac775bdc2d62\", \"0xGENESIS_USER1\"]}"

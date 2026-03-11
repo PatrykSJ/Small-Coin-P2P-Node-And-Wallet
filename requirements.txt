@@ -1,0 +1,7 @@
+cryptography>=43.0.0
+python-dotenv>=1.0.1
+ecdsa
+argon2-cffi
+flask
+flask-cors
+requests

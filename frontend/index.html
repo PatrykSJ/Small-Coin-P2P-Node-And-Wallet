@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HugoChain Wallet</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 420px;
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #222;
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 4px;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    .result {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background: #f9fafb;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.9em;
+    }
+    .filename-note {
+      font-size: 0.8em;
+      color: #666;
+      margin-top: 4px;
+    }
+    .wallet-status {
+      background: #e0f2fe;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px 0;
+      border-left: 4px solid #0369a1;
+    }
+    .no-wallet {
+      background: #fef3c7;
+      border-left: 4px solid #d97706;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 HugoChain Wallet</h1>
+      
+        <!-- Current Wallet Status -->
+        <div id="walletStatus" class="wallet-status no-wallet">
+          ⚠️ No wallet loaded. Upload a wallet to sign transactions.
+        </div>
+      
+        <!-- Create Wallet -->
+        <h2>Create Wallet</h2>
+        <label>Initial identity label in the wallet</label>
+        <input type="text" id="newLabel" placeholder="My Wallet">
+      
+        <label>Filename (optional)</label>
+        <input type="text" id="newFilename" placeholder="my_wallet.json">
+        <div class="filename-note">If empty, will use: wallet_&lt;address&gt;.json</div>
+      
+        <label>Password</label>
+        <input type="password" id="newPassword">
+      
+        <button id="createWalletBtn">Create Wallet</button>
+      
+        <hr>
+      
+        <!-- Manage Wallet -->
+        <h2>Manage Existing Wallet</h2>
+        <label>Wallet file (.json)</label>
+        <input type="file" id="walletFile">
+      
+        <label>Password</label>
+        <input type="password" id="password">
+      
+        <button id="generateKeyBtn">Generate New Key</button>
+      
+        <hr>
+      
+        <!-- Transactions -->
+        <h2>Create Transaction</h2>
+        <label>Sender Address</label>
+        <input type="text" id="fromAddr" placeholder="Hx...">
+      
+        <label>Recipient Address</label>
+        <input type="text" id="toAddr" placeholder="Hx...">
+      
+        <label>Amount</label>
+        <input type="number" id="amount" value="10">
+      
+        <label>Fee</label>
+        <input type="number" id="fee" value="0.001">
+      
+        <button id="signBtn">Sign Transaction</button>
+        <button id="sendBtn">Send to Node</button>
+      
+        <div class="result" id="output"></div>
+      </div>
+      <script src="app.js"></script>
+</body>
+</html>
